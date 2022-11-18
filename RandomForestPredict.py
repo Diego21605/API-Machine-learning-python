@@ -4,10 +4,12 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from mlxtend.plotting import plot_confusion_matrix
 from sklearn.metrics import confusion_matrix
+import sqlalchemy
 
-def prediccion(datos):
+def prediccion(totalBateria, bluetooth, procesador, dualSim, mgPixelesFront, tecnology4G, internalMemory, m_depp, peso_Telefono, number_cores, mgPixelesPrimeary, px_height, px_widht, ram_memory, sc_h, sc_w, time_charger, tecnologia_3g, pantalla_tactil, wifi):
     # Cargamos el dataset
-    df= datos
+    conn = sqlalchemy.create_engine("mysql+pymysql://admin:admin123@finalproject.csl9lso2teho.us-east-1.rds.amazonaws.com:3306/dbFinalProject")
+    df = pd.read_sql_table("TrainPredict", conn)
     # Descripción genereal del conjunto de datos
     df.describe()
 
@@ -52,7 +54,7 @@ def prediccion(datos):
     plot_confusion_matrix(conf_mat=matriz, figsize=(6,6), show_normed=False)
     plt.tight_layout()
 
-    arr = [1821,1,1.2,0,13,1,44,0.6,141,2,14,1208,1212,1411,8,2,15,1,1,0]
+    arr = [totalBateria, bluetooth, procesador, dualSim, mgPixelesFront, tecnology4G, internalMemory, m_depp, peso_Telefono, number_cores, mgPixelesPrimeary, px_height, px_widht, ram_memory, sc_h, sc_w, time_charger, tecnologia_3g, pantalla_tactil, wifi]
 
     Z_pred = BA_model.predict([arr])
 
@@ -63,4 +65,4 @@ def prediccion(datos):
         predict = predict.replace(character, "")
 
     print("Predict: " + predict)
-    return predict
+    return ("Predict: " + predict)
