@@ -42,7 +42,8 @@ def getUsuario(id):
 # Funcion con la entrenará el algoritmo de prediccion
 @app.route('/getAllTrainPredict/<totalBateria>/<bluetooth>/<procesador>/<dualSim>/<mgPixelesFront>/<tecnology4G>/<internalMemory>/<m_depp>/<peso_Telefono>/<number_cores>/<mgPixelesPrimeary>/<px_height>/<px_widht>/<ram_memory>/<sc_h>/<sc_w>/<time_charger>/<tecnologia_3g>/<pantalla_tactil>/<wifi>', methods=['GET'])
 def getAllTrainPredict(totalBateria, bluetooth, procesador, dualSim, mgPixelesFront, tecnology4G, internalMemory, m_depp, peso_Telefono, number_cores, mgPixelesPrimeary, px_height, px_widht, ram_memory, sc_h, sc_w, time_charger, tecnologia_3g, pantalla_tactil, wifi):
-    return(pre.prediccion(totalBateria, bluetooth, procesador, dualSim, mgPixelesFront, tecnology4G, internalMemory, m_depp, peso_Telefono, number_cores, mgPixelesPrimeary, px_height, px_widht, ram_memory, sc_h, sc_w, time_charger, tecnologia_3g, pantalla_tactil, wifi))
+    res = (pre.prediccion(totalBateria, bluetooth, procesador, dualSim, mgPixelesFront, tecnology4G, internalMemory, m_depp, peso_Telefono, number_cores, mgPixelesPrimeary, px_height, px_widht, ram_memory, sc_h, sc_w, time_charger, tecnologia_3g, pantalla_tactil, wifi))
+    return jsonify({"informacion":res})
 
 # Funcion que va a insertar datos en la tabla de prediccion
 @app.route('/add_Predict', methods=['POST'])

@@ -65,4 +65,4 @@ def prediccion(totalBateria, bluetooth, procesador, dualSim, mgPixelesFront, tec
         predict = predict.replace(character, "")
 
     print("Predict: " + predict)
-    return ("Predict: " + predict)
+    return ("El costó será : " + predict)
