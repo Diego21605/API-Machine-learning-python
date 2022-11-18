@@ -34,10 +34,26 @@ def postSistemaReglas(v_repiratorio, v_fatiga, v_dolor, v_cuello, v_debiliad):
         print(e)
         return jsonify({"informacion":e})
 
+@app.route('/getUsuario/<id>/<password>', methods=['GET'])
+def getUsuario(id, password):
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM Usuario WHERE Id = %s AND Contrasena = %d', (id,password))
+        rv = cur.fetchall()
+        cur.close()
+        payload = []
+        content = {}
+        for result in rv:
+            content = {'Id': result[0], 'Nombre': result[1]}
+            payload.append(content)
+            content = {}
+        return jsonify(payload)
+        return datos
+    except Exception as e:
+        print(e)
+        return jsonify({"informacion":e})
 
-# @app.route('/postSistemaReglas/<v_repiratorio>/<v_fatiga>/<v_dolor>/<v_cuello>/<v_debiliad>', methods=['POST'])
-# def postSistemaReglas(v_repiratorio, v_fatiga, v_dolor, v_cuello, v_debiliad):    
-#     return sys.preguntas(v_repiratorio, v_fatiga, v_dolor, v_cuello, v_debiliad)
+
 
 @app.route('/postSistemaReglas', methods=['POST'])
 def add_contact():
