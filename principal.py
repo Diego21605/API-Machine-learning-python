@@ -91,6 +91,31 @@ def add_predict():
     except Exception as e:
         print(e)
         return jsonify({"informacion":e})
+
+# Funcion que va a insertar datos en la tabla de prediccion
+@app.route('/add_Sistemareglas', methods=['POST'])
+def add_Sistemareglas():
+    try:
+        if request.method == 'POST':
+            V_Respiratorio = request.json['V_Respiratorio']
+            V_Fatiga = request.json['V_Fatiga']
+            V_DolorArticular = request.json['V_DolorArticular']
+            V_CuelloHinchado = request.json['V_CuelloHinchado']
+            V_Debilidad = request.json['V_Debilidad']
+            Respuesta = request.json['Respuesta']
+            Fecha = request.json['Fecha']
+            Id_Usuario = request.json['Id_Usuario']
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO Sistema_Reglas (V_Respiratorio, V_Fatiga, V_DolorArticular, V_CuelloHinchado, V_Debilidad, Respuesta, Fecha, Id_Usuario) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (V_Respiratorio, V_Fatiga, V_DolorArticular, V_CuelloHinchado, V_Debilidad, Respuesta, Fecha, Id_Usuario))
+            mysql.connection.commit()
+            return jsonify({"informacion":"Registro exitoso"})
+        
+    except Exception as e:
+        print(e)
+        return jsonify({"informacion":e})
+
+
+
 # starting the app
 if __name__ == "__main__":
     app.run(port=3000, debug=True)
